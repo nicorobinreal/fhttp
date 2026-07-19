@@ -45,10 +45,10 @@ import (
 	"sync"
 	"time"
 
-	tls "github.com/bogdanfinn/utls"
+	tls "github.com/albinstman/utls"
 
-	http "github.com/bogdanfinn/fhttp"
-	"github.com/bogdanfinn/fhttp/http2/hpack"
+	http "github.com/albinstman/fhttp"
+	"github.com/albinstman/fhttp/http2/hpack"
 
 	"golang.org/x/net/http/httpguts"
 )
