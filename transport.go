@@ -2187,12 +2187,8 @@ func (pc *persistConn) readLoop() {
 
 		resp.Body = body
 
-		if rc.addedGzip {
+		if !pc.t.DisableCompression {
 			resp.Body = DecompressBody(resp)
-			resp.Header.Del("Content-Encoding")
-			resp.Header.Del("Content-Length")
-			resp.ContentLength = -1
-			resp.Uncompressed = true
 		}
 
 		select {
@@ -2468,11 +2464,6 @@ type requestAndChan struct {
 	cancelKey cancelKey
 	ch        chan responseAndError // unbuffered; always send in select on callerGone
 
-	// whether the Transport (as opposed to the user client code)
-	// added the Accept-Encoding gzip header. If the Transport
-	// set it, only then do we transparently decode the gzip.
-	addedGzip bool
-
 	// Optional blocking chan for Expect: 100-continue (for send).
 	// If the request has an "Expect: 100-continue" header and
 	// the server responds 100 Continue, readLoop send a value
@@ -2542,11 +2533,10 @@ func (pc *persistConn) roundTrip(req *transportRequest) (resp *Response, err err
 	}
 
 	// Ask for a compressed version if the caller didn't set their
-	// own value for Accept-Encoding. We only attempt to
-	// uncompress the gzip stream if we were the layer that
-	// requested it.
+	// own value for Accept-Encoding. The response body is
+	// transparently decoded based on the response's actual
+	// Content-Encoding regardless of which layer asked for it.
 
-	requestedGzip := false
 	if !pc.t.DisableCompression &&
 		req.Header.Get("Accept-Encoding") == "" &&
 		req.Header.get("accept-encoding") == "" &&
@@ -2563,13 +2553,7 @@ func (pc *persistConn) roundTrip(req *transportRequest) (resp *Response, err err
 		// We don't request gzip if the request is for a range, since
 		// auto-decoding a portion of a gzipped document will just fail
 		// anyway. See https://golang.org/issue/8923
-		requestedGzip = true
 		req.extraHeaders().Set("Accept-Encoding", "gzip, deflate, br")
-	}
-
-	// Set gzip to true if the caller's Accept-Encoding includes gzip.
-	if !pc.t.DisableCompression && (strings.Contains(req.Header.Get("Accept-Encoding"), "gzip") || strings.Contains(req.Request.Header.get("accept-encoding"), "gzip")) {
-		requestedGzip = true
 	}
 
 	var continueCh chan struct{}
@@ -2606,7 +2590,6 @@ func (pc *persistConn) roundTrip(req *transportRequest) (resp *Response, err err
 		req:        req.Request,
 		cancelKey:  req.cancelKey,
 		ch:         resc,
-		addedGzip:  requestedGzip,
 		continueCh: continueCh,
 		callerGone: gone,
 	}
@@ -2871,9 +2854,21 @@ func (cl *connLRU) len() int {
 	return len(cl.m)
 }
 
+// DecompressBody transparently decodes res.Body based on the response's
+// Content-Encoding. When the encoding is recognized, the Content-Encoding
+// and Content-Length headers are removed since they no longer describe the
+// decoded body. Responses with no (or an unrecognized) Content-Encoding are
+// returned untouched.
 func DecompressBody(res *Response) io.ReadCloser {
 	ce := res.Header.Get("Content-Encoding")
+	switch ce {
+	case "gzip", "br", "deflate", "zstd":
+	default:
+		return res.Body
+	}
 
+	res.Header.Del("Content-Encoding")
+	res.Header.Del("Content-Length")
 	res.ContentLength = -1
 	res.Uncompressed = true
 
