@@ -5,9 +5,9 @@ go 1.24.1
 toolchain go1.24.4
 
 require (
-	github.com/nicorobinreal/utls v1.7.7-albinstman.1
 	github.com/andybalholm/brotli v1.1.1
 	github.com/klauspost/compress v1.17.11
+	github.com/nicorobinreal/utls v1.7.7-nicorobinreal.1
 	golang.org/x/net v0.38.0
 	golang.org/x/term v0.30.0
 )
