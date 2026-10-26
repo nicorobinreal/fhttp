@@ -24,11 +24,11 @@ import (
 	"testing"
 	"time"
 
-	tls "github.com/albinstman/utls"
+	tls "github.com/nicorobinreal/utls"
 
-	. "github.com/albinstman/fhttp"
-	"github.com/albinstman/fhttp/cookiejar"
-	"github.com/albinstman/fhttp/httptest"
+	. "github.com/nicorobinreal/fhttp"
+	"github.com/nicorobinreal/fhttp/cookiejar"
+	"github.com/nicorobinreal/fhttp/httptest"
 )
 
 var robotsTxtHandler = HandlerFunc(func(w ResponseWriter, r *Request) {

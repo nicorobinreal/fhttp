@@ -37,14 +37,14 @@ import (
 	"testing/iotest"
 	"time"
 
-	tls "github.com/albinstman/utls"
+	tls "github.com/nicorobinreal/utls"
 
-	. "github.com/albinstman/fhttp"
-	"github.com/albinstman/fhttp/httptest"
-	"github.com/albinstman/fhttp/httptrace"
-	"github.com/albinstman/fhttp/httputil"
-	"github.com/albinstman/fhttp/internal"
-	"github.com/albinstman/fhttp/internal/nettrace"
+	. "github.com/nicorobinreal/fhttp"
+	"github.com/nicorobinreal/fhttp/httptest"
+	"github.com/nicorobinreal/fhttp/httptrace"
+	"github.com/nicorobinreal/fhttp/httputil"
+	"github.com/nicorobinreal/fhttp/internal"
+	"github.com/nicorobinreal/fhttp/internal/nettrace"
 
 	"golang.org/x/net/http/httpguts"
 )

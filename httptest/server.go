@@ -17,10 +17,10 @@ import (
 	"sync"
 	"time"
 
-	tls "github.com/albinstman/utls"
+	tls "github.com/nicorobinreal/utls"
 
-	http "github.com/albinstman/fhttp"
-	"github.com/albinstman/fhttp/internal"
+	http "github.com/nicorobinreal/fhttp"
+	"github.com/nicorobinreal/fhttp/internal"
 )
 
 // A Server is an HTTP server listening on a system-chosen port on the

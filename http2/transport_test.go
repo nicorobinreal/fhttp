@@ -31,12 +31,12 @@ import (
 	"testing"
 	"time"
 
-	tls "github.com/albinstman/utls"
+	tls "github.com/nicorobinreal/utls"
 
-	http "github.com/albinstman/fhttp"
-	"github.com/albinstman/fhttp/http2/hpack"
-	"github.com/albinstman/fhttp/httptest"
-	"github.com/albinstman/fhttp/httptrace"
+	http "github.com/nicorobinreal/fhttp"
+	"github.com/nicorobinreal/fhttp/http2/hpack"
+	"github.com/nicorobinreal/fhttp/httptest"
+	"github.com/nicorobinreal/fhttp/httptrace"
 )
 
 var (

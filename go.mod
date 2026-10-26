@@ -1,11 +1,11 @@
-module github.com/albinstman/fhttp
+module github.com/nicorobinreal/fhttp
 
 go 1.24.1
 
 toolchain go1.24.4
 
 require (
-	github.com/albinstman/utls v1.7.7-albinstman.1
+	github.com/nicorobinreal/utls v1.7.7-albinstman.1
 	github.com/andybalholm/brotli v1.1.1
 	github.com/klauspost/compress v1.17.11
 	golang.org/x/net v0.38.0
@@ -18,4 +18,4 @@ require (
 	golang.org/x/text v0.23.0 // indirect
 )
 
-// replace github.com/albinstman/utls => ../utls
+// replace github.com/nicorobinreal/utls => ../utls
