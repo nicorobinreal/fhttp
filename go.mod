@@ -4,8 +4,8 @@ go 1.27
 
 require (
 	github.com/andybalholm/brotli v1.1.1
-	github.com/nicorobinreal/utls v1.8.2-barnius
 	github.com/klauspost/compress v1.20.1
+	github.com/nicorobinreal/utls v1.8.2-nicorobinreal.1
 	golang.org/x/net v0.59.0
 	golang.org/x/term v0.46.0
 )
