@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	http "github.com/bogdanfinn/fhttp"
-	"github.com/bogdanfinn/fhttp/http2"
-	tls "github.com/bogdanfinn/utls"
+	http "github.com/nicorobinreal/fhttp"
+	"github.com/nicorobinreal/fhttp/http2"
+	tls "github.com/nicorobinreal/utls"
 )
 
 // A Connection: close request gets a single-use connection. That connection

@@ -13,10 +13,10 @@ import (
 	"strings"
 	"testing"
 
-	tls "github.com/bogdanfinn/utls"
+	tls "github.com/nicorobinreal/utls"
 
-	. "github.com/bogdanfinn/fhttp"
-	"github.com/bogdanfinn/fhttp/httptest"
+	. "github.com/nicorobinreal/fhttp"
+	"github.com/nicorobinreal/fhttp/httptest"
 )
 
 func TestNextProtoUpgrade(t *testing.T) {
